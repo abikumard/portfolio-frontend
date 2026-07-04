@@ -1,0 +1,123 @@
+.experience-section {
+  padding: 5rem 0;
+  background: #020617;
+  color: #ffffff;
+}
+
+.experience-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.experience-title {
+  font-size: clamp(2.5rem, 3vw, 4rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.experience-title span {
+  color: #22d3ee;
+}
+
+.experience-subtitle {
+  text-align: center;
+  color: #94a3b8;
+  max-width: 34rem;
+  margin: 0 auto 3.5rem;
+}
+
+.experience-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-row {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.experience-dot-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.experience-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.15);
+  margin-top: 0.6rem;
+  flex-shrink: 0;
+}
+
+.experience-line {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(34, 211, 238, 0.5), rgba(34, 211, 238, 0.05));
+  margin: 4px 0;
+}
+
+.experience-card {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(34, 211, 238, 0.15);
+  border-radius: 1.75rem;
+  padding: 1.75rem 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.experience-card:hover {
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+  border-color: rgba(34, 211, 238, 0.4);
+}
+
+.experience-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.experience-top h2 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.company-name {
+  color: #94a3b8;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.duration {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(34, 211, 238, 0.1);
+  color: #22d3ee;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.experience-description {
+  color: #cbd5e1;
+  line-height: 1.85;
+  font-size: 1rem;
+}
+
+.experience-empty {
+  text-align: center;
+  color: #94a3b8;
+}
