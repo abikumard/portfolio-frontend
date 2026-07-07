@@ -9,12 +9,13 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "./config/api";
 
 function App() {
  useEffect(() => {
 
     axios.post(
-      "http://localhost:8080/visitor/save",
+      `${API_BASE_URL}/visitor/save`,
       {
         ipAddress: "127.0.0.1",
         pageName: "HOME"

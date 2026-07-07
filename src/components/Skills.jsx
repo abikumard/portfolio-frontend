@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 import {
 	FaJava,
@@ -74,7 +75,7 @@ function Skills() {
 			setLoading(true);
 
 			const response = await axios.get(
-				"http://localhost:8080/skill/list"
+				`${API_BASE_URL}/skill/list`
 			);
 
 			setSkills(response.data);

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { API_BASE_URL } from "../config/api";
 
 import img1 from "../assets/project-1.svg";
 import img2 from "../assets/project-2.svg";
@@ -38,7 +39,7 @@ function Projects() {
 			setLoading(true);
 
 			const response = await axios.get(
-				"http://localhost:8080/project/list"
+				`${API_BASE_URL}/project/list`
 			);
 
 			setProjects(response.data);

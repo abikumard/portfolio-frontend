@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Experience.css";
+import { API_BASE_URL } from "../config/api";
 
 function Experience() {
 
@@ -22,7 +23,7 @@ function Experience() {
 			setLoading(true);
 
 			const response = await axios.get(
-				"http://localhost:8080/experience/list"
+				`${API_BASE_URL}/experience/list`
 			);
 
 			setExperienceData(response.data);

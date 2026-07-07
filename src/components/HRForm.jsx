@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config/api";
 
 const FIELDS = [
 	{ name: "hrName", label: "HR Name", type: "text", placeholder: "Enter HR Name" },
@@ -56,7 +57,7 @@ function HRForm() {
 			setStatus(null);
 
 			await axios.post(
-				"http://localhost:8080/hr/save",
+				`${API_BASE_URL}/hr/save`,
 				formData
 			);
 

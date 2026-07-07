@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaJava, FaReact } from "react-icons/fa";
 import { SiSpringboot, SiMysql } from "react-icons/si";
+import { API_BASE_URL } from "../config/api";
 
 // Add / remove roles here — the typewriter picks them up automatically
 const ROLES = [
@@ -50,7 +51,7 @@ function Hero() {
 
 	const downloadResume = () => {
 		window.open(
-			"http://localhost:8080/resume/download",
+			`${API_BASE_URL}/resume/download`,
 			"_blank"
 		);
 	};
