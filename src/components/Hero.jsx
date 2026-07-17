@@ -56,12 +56,13 @@ function Hero() {
 
 			<div className="absolute -left-24 top-1/3 w-[26rem] h-[26rem] bg-[var(--accent-soft)] rounded-full blur-3xl animate-blob"></div>
 
-			<div className="container-custom grid lg:grid-cols-2 gap-16 items-center relative z-10">
+			<div className="container-custom grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center relative z-10">
 
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7 }}
+					className="w-full max-w-2xl lg:justify-self-center"
 				>
 
 					<p className="eyebrow mb-6">welcome to my portfolio</p>
@@ -116,7 +117,7 @@ function Hero() {
 					initial={{ opacity: 0, y: 40 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, delay: 0.2 }}
-					className="relative"
+					className="relative w-full max-w-xl lg:justify-self-center"
 				>
 
 					<div className="card shadow-xl shadow-black/5 overflow-hidden">

@@ -11,8 +11,7 @@ import {
 
 import {
 	SiSpringboot,
-	SiMysql,
-	SiVisualstudiocode
+	SiMysql
 } from "react-icons/si";
 
 // Straight from the resume — add or edit a skill here and the grid updates automatically.
@@ -23,7 +22,7 @@ const SKILLS = [
 	{ name: "HTML", icon: <FaHtml5 /> },
 	{ name: "CSS", icon: <FaCss3Alt /> },
 	{ name: "Git & GitHub", icon: <FaGithub /> },
-	{ name: "VS Code", icon: <SiVisualstudiocode /> },
+	{ name: "VS Code", icon: <FaCode /> },
 	{ name: "Eclipse", icon: <FaCode /> }
 ];
 
@@ -48,7 +47,7 @@ function Skills() {
 
 	return (
 
-		<section id="skills" className="section-alt">
+		<section id="skills" className="section-alt pt-24">
 
 			<div className="container-custom">
 

@@ -76,14 +76,14 @@ function Navbar() {
 					</span>
 				</button>
 
-				<ul className="hidden md:flex gap-2 text-sm font-medium">
+				<ul className="hidden md:flex gap-3 text-sm font-medium">
 
 					{NAV_LINKS.map((link) => (
 
 						<li key={link.id}>
 							<button
 								onClick={() => handleNavClick(link.id)}
-								className={`relative px-4 py-2 rounded-lg duration-200 cursor-pointer ${
+								className={`relative px-5 py-2.5 rounded-lg duration-200 cursor-pointer ${
 									activeSection === link.id
 										? "text-[var(--accent-strong)] bg-[var(--accent-soft)]"
 										: "text-[var(--slate)] hover:text-[var(--ink)] hover:bg-[var(--paper-alt)]"

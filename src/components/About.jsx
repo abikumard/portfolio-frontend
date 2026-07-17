@@ -51,7 +51,7 @@ function About() {
 
 	return (
 
-		<section id="about">
+		<section id="about" className="pb-24">
 
 			<div className="container-custom grid lg:grid-cols-2 gap-20 items-center">
 
