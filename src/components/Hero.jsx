@@ -1,22 +1,12 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { FaJava, FaReact } from "react-icons/fa";
-import { SiSpringboot, SiMysql } from "react-icons/si";
 import { API_BASE_URL } from "../config/api";
 
 // Add / remove roles here — the typewriter picks them up automatically
 const ROLES = [
-	"Java Full Stack Developer",
-	"React.js Developer",
-	"Spring Boot Developer"
-];
-
-// Add / remove floating tech badges here
-const TECH_BADGES = [
-	{ icon: <FaJava />, label: "Java" },
-	{ icon: <FaReact />, label: "React" },
-	{ icon: <SiSpringboot />, label: "Spring Boot" },
-	{ icon: <SiMysql />, label: "MySQL" }
+	"Full Stack Developer",
+	"Java & Spring Boot Developer",
+	"REST API Developer"
 ];
 
 function Hero() {
@@ -62,97 +52,104 @@ function Hero() {
 
 	return (
 
-		<section id="home" className="min-h-screen flex justify-center items-center relative overflow-hidden bg-grid">
+		<section id="home" className="min-h-screen flex items-center relative overflow-hidden bg-grid pt-28 pb-16">
 
-			<div className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[28rem] h-[28rem] bg-cyan-500/20 rounded-full blur-3xl animate-blob"></div>
-			<div className="absolute right-10 bottom-10 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }}></div>
+			<div className="absolute -left-24 top-1/3 w-[26rem] h-[26rem] bg-[var(--accent-soft)] rounded-full blur-3xl animate-blob"></div>
 
-			{/* floating tech badges — decorative, hidden on small screens */}
-			<div className="hidden lg:block absolute inset-0 pointer-events-none">
-
-				{TECH_BADGES.map((badge, i) => (
-
-					<motion.div
-						key={badge.label}
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 1.8 + i * 0.15, duration: 0.6 }}
-						className="animate-float absolute flex items-center gap-2 bg-slate-900/70 border border-cyan-500/20 rounded-full px-4 py-2 backdrop-blur-xl text-cyan-300 text-sm font-medium shadow-lg"
-						style={{
-							top: ["18%", "70%", "28%", "68%"][i],
-							left: ["8%", "12%", "84%", "80%"][i],
-							animationDelay: `${i * 0.7}s`
-						}}
-					>
-						<span className="text-lg">{badge.icon}</span>
-						{badge.label}
-					</motion.div>
-
-				))}
-
-			</div>
-
-			<div className="container-custom text-center z-10">
-
-				<motion.p
-					initial={{ opacity: 0, y: -20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6 }}
-					className="uppercase tracking-[0.3em] text-cyan-400 text-sm font-semibold mb-6"
-				>
-					Welcome to my portfolio
-				</motion.p>
-
-				<motion.h1
-					initial={{ opacity: 0, y: -50 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 1 }}
-					className="text-5xl md:text-7xl font-extrabold"
-				>
-					Hi, I'm
-					<span className="text-cyan-400"> Abikumar</span>
-				</motion.h1>
-
-				<div className="mt-6 h-9 flex items-center justify-center">
-					<span className="text-xl md:text-2xl text-gray-300 font-medium">
-						{displayText}
-						<span className="inline-block w-[2px] h-6 bg-cyan-400 ml-1 align-middle animate-pulse"></span>
-					</span>
-				</div>
+			<div className="container-custom grid lg:grid-cols-2 gap-16 items-center relative z-10">
 
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 1.4 }}
-					className="mt-10 flex justify-center gap-6 flex-wrap"
+					initial={{ opacity: 0, y: 30 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.7 }}
 				>
 
-					<button
-						onClick={scrollToProjects}
-						className="w-[220px] bg-cyan-500 px-8 py-4 rounded-2xl font-semibold hover:scale-105 hover:bg-cyan-400 duration-300 shadow-lg shadow-cyan-500/30"
-					>
-						View Projects
-					</button>
+					<p className="eyebrow mb-6">welcome to my portfolio</p>
 
-					<button
-						onClick={downloadResume}
-						className="w-[220px] border border-cyan-400 px-8 py-4 rounded-2xl hover:bg-cyan-500 duration-300 font-semibold"
+					<h1 className="text-5xl md:text-6xl font-bold leading-[1.05] text-[var(--ink)]">
+						Hi, I'm <span className="text-[var(--accent-strong)]">Abikumar</span>
+					</h1>
+
+					<div className="mt-5 h-9 flex items-center">
+						<span
+							className="text-xl md:text-2xl text-[var(--slate)] font-medium"
+							style={{ fontFamily: "var(--mono)" }}
+						>
+							{displayText}
+							<span className="inline-block w-[2px] h-6 bg-[var(--accent)] ml-1 align-middle animate-blink"></span>
+						</span>
+					</div>
+
+					<p className="mt-6 text-[var(--slate)] text-lg leading-8 max-w-lg">
+						I build backend services with Java and Spring Boot, and pair them with
+						clean, responsive front ends. Based in Chennai, and always looking to
+						learn and ship real, working software.
+					</p>
+
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 0.4 }}
+						className="mt-10 flex gap-4 flex-wrap"
 					>
-						Download Resume
-					</button>
+
+						<button
+							onClick={scrollToProjects}
+							className="btn-primary px-8 py-4 rounded-xl font-semibold hover:scale-[1.02] duration-300 shadow-lg shadow-black/5"
+						>
+							View Projects
+						</button>
+
+						<button
+							onClick={downloadResume}
+							className="btn-outline px-8 py-4 rounded-xl font-semibold duration-300"
+						>
+							Download Resume
+						</button>
+
+					</motion.div>
+
+				</motion.div>
+
+				{/* signature element — a small "editor window" summarizing the profile as code */}
+				<motion.div
+					initial={{ opacity: 0, y: 40 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.8, delay: 0.2 }}
+					className="relative"
+				>
+
+					<div className="card shadow-xl shadow-black/5 overflow-hidden">
+
+						<div className="flex items-center gap-2 px-5 py-3 border-b border-[var(--line)] bg-[var(--paper-alt)]">
+							<span className="w-2.5 h-2.5 rounded-full bg-[#e3625c]"></span>
+							<span className="w-2.5 h-2.5 rounded-full bg-[#e8b23d]"></span>
+							<span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)]"></span>
+							<span
+								className="ml-3 text-xs text-[var(--slate)]"
+								style={{ fontFamily: "var(--mono)" }}
+							>
+								Profile.java
+							</span>
+						</div>
+
+						<div
+							className="p-6 md:p-8 text-sm md:text-[15px] leading-8 overflow-x-auto"
+							style={{ fontFamily: "var(--mono)" }}
+						>
+							<p><span className="text-[var(--accent-strong)]">public class</span> Abikumar {"{"}</p>
+							<p className="pl-5">role <span className="text-[var(--slate-soft)]">=</span> <span className="text-[var(--accent)]">"Full Stack Developer"</span>;</p>
+							<p className="pl-5">stack <span className="text-[var(--slate-soft)]">=</span> [<span className="text-[var(--accent)]">"Java"</span>, <span className="text-[var(--accent)]">"Spring Boot"</span>, <span className="text-[var(--accent)]">"MySQL"</span>, <span className="text-[var(--accent)]">"React"</span>];</p>
+							<p className="pl-5">location <span className="text-[var(--slate-soft)]">=</span> <span className="text-[var(--accent)]">"Chennai, India"</span>;</p>
+							<p className="pl-5">status <span className="text-[var(--slate-soft)]">=</span> <span className="text-[var(--accent)]">"Open to opportunities"</span>;</p>
+							<p>{"}"}</p>
+						</div>
+
+					</div>
 
 				</motion.div>
 
 			</div>
-
-			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1, y: [0, 8, 0] }}
-				transition={{ opacity: { delay: 2 }, y: { duration: 1.8, repeat: Infinity } }}
-				className="absolute bottom-8 left-1/2 -translate-x-1/2 text-cyan-400/70 text-2xl"
-			>
-				↓
-			</motion.div>
 
 		</section>
 

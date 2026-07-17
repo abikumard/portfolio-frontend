@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 * {
   margin: 0;
@@ -8,13 +8,22 @@
 }
 
 :root {
-  --accent: #22d3ee;
-  --accent-soft: rgba(34, 211, 238, 0.12);
+  --ink: #0b1220;
+  --slate: #5b6472;
+  --slate-soft: #8a93a3;
+  --paper: #ffffff;
+  --paper-alt: #f4f6f9;
+  --line: #e3e7ed;
+  --accent: #2f6f5e;
+  --accent-strong: #234f43;
+  --accent-soft: rgba(47, 111, 94, 0.10);
+  --accent-soft-2: rgba(47, 111, 94, 0.18);
+  --mono: 'IBM Plex Mono', 'Menlo', monospace;
 }
 
 body {
-  background: #020617;
-  color: white;
+  background: var(--paper);
+  color: var(--ink);
   overflow-x: hidden;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
@@ -31,6 +40,12 @@ section {
   scroll-margin-top: 90px;
 }
 
+.section-alt {
+  background: var(--paper-alt);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
 .container-custom {
   width: 90%;
   max-width: 1300px;
@@ -41,12 +56,54 @@ html {
   scroll-behavior: smooth;
 }
 
-/* subtle code-grid backdrop used behind sections */
+/* monospace "code comment" eyebrow label used above section titles */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.eyebrow::before {
+  content: "// ";
+  opacity: 0.55;
+}
+
+/* soft hairline grid backdrop, replaces the old neon grid */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(34, 211, 238, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-primary:hover {
+  background: var(--accent-strong);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
 }
 
 /* custom scrollbar */
@@ -54,19 +111,19 @@ html {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: var(--paper-alt);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(34, 211, 238, 0.35);
+  background: rgba(47, 111, 94, 0.35);
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(34, 211, 238, 0.6);
+  background: rgba(47, 111, 94, 0.6);
 }
 
 @keyframes floatY {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-14px); }
+  50% { transform: translateY(-12px); }
 }
 .animate-float {
   animation: floatY 5s ease-in-out infinite;
@@ -74,10 +131,18 @@ html {
 
 @keyframes blobPulse {
   0%, 100% { transform: scale(1) translate(0, 0); }
-  50% { transform: scale(1.15) translate(20px, -10px); }
+  50% { transform: scale(1.12) translate(16px, -8px); }
 }
 .animate-blob {
-  animation: blobPulse 8s ease-in-out infinite;
+  animation: blobPulse 9s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
 }
 
 @keyframes shimmer {
@@ -85,7 +150,7 @@ html {
   100% { background-position: 400px 0; }
 }
 .skeleton {
-  background: linear-gradient(90deg, rgba(148,163,184,0.08) 25%, rgba(148,163,184,0.18) 37%, rgba(148,163,184,0.08) 63%);
+  background: linear-gradient(90deg, rgba(148,163,184,0.10) 25%, rgba(148,163,184,0.22) 37%, rgba(148,163,184,0.10) 63%);
   background-size: 800px 100%;
   animation: shimmer 1.6s linear infinite;
 }

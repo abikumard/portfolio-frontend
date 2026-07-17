@@ -3,12 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from "react-icons/hi";
 
 const NAV_LINKS = [
-	{ label: "Home", id: "home" },
-	{ label: "About", id: "about" },
-	{ label: "Skills", id: "skills" },
-	{ label: "Projects", id: "projects" },
-	{ label: "Experience", id: "experience" },
-	{ label: "Contact", id: "contact" }
+	{ label: "about", id: "about" },
+	{ label: "skills", id: "skills" },
+	{ label: "projects", id: "projects" },
+	{ label: "experience", id: "experience" },
+	{ label: "contact", id: "contact" }
 ];
 
 function Navbar() {
@@ -34,7 +33,7 @@ function Navbar() {
 			{ rootMargin: "-40% 0px -50% 0px" }
 		);
 
-		NAV_LINKS.forEach(({ id }) => {
+		["home", ...NAV_LINKS.map((l) => l.id)].forEach((id) => {
 			const el = document.getElementById(id);
 			if (el) observer.observe(el);
 		});
@@ -57,8 +56,8 @@ function Navbar() {
 		<nav
 			className={`fixed top-0 w-full z-50 border-b transition-all duration-300 ${
 				scrolled
-					? "bg-[#020617]/90 backdrop-blur-xl border-cyan-500/10 py-3"
-					: "bg-transparent border-transparent py-5"
+					? "bg-white/90 backdrop-blur-xl border-[var(--line)] py-3"
+					: "bg-white/40 border-transparent py-5"
 			}`}
 		>
 
@@ -66,29 +65,32 @@ function Navbar() {
 
 				<button
 					onClick={() => handleNavClick("home")}
-					className="text-3xl md:text-4xl font-extrabold tracking-wide text-cyan-400 hover:opacity-80 transition"
+					className="flex items-center gap-2 group"
 				>
-					Abikumar<span className="text-white">.</span>
+					<span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] group-hover:animate-pulse"></span>
+					<span
+						className="text-lg md:text-xl font-semibold tracking-tight text-[var(--ink)]"
+						style={{ fontFamily: "var(--mono)" }}
+					>
+						abikumar<span className="text-[var(--slate-soft)]">.dev</span>
+					</span>
 				</button>
 
-				<ul className="hidden md:flex gap-10 text-base font-medium text-gray-300">
+				<ul className="hidden md:flex gap-2 text-sm font-medium">
 
 					{NAV_LINKS.map((link) => (
 
 						<li key={link.id}>
 							<button
 								onClick={() => handleNavClick(link.id)}
-								className={`relative py-1 duration-300 cursor-pointer ${
-									activeSection === link.id ? "text-cyan-400" : "hover:text-cyan-400"
+								className={`relative px-4 py-2 rounded-lg duration-200 cursor-pointer ${
+									activeSection === link.id
+										? "text-[var(--accent-strong)] bg-[var(--accent-soft)]"
+										: "text-[var(--slate)] hover:text-[var(--ink)] hover:bg-[var(--paper-alt)]"
 								}`}
+								style={{ fontFamily: "var(--mono)" }}
 							>
 								{link.label}
-								{activeSection === link.id && (
-									<motion.span
-										layoutId="nav-underline"
-										className="absolute left-0 -bottom-1 h-[2px] w-full bg-cyan-400 rounded-full"
-									/>
-								)}
 							</button>
 						</li>
 
@@ -97,7 +99,7 @@ function Navbar() {
 				</ul>
 
 				<button
-					className="md:hidden text-cyan-400 text-3xl"
+					className="md:hidden text-[var(--ink)] text-3xl"
 					onClick={() => setMenuOpen((prev) => !prev)}
 					aria-label="Toggle menu"
 				>
@@ -115,7 +117,7 @@ function Navbar() {
 						animate={{ opacity: 1, height: "auto" }}
 						exit={{ opacity: 0, height: 0 }}
 						transition={{ duration: 0.3 }}
-						className="md:hidden flex flex-col items-center gap-6 py-8 bg-[#020617]/95 backdrop-blur-xl border-t border-cyan-500/10 overflow-hidden"
+						className="md:hidden flex flex-col items-center gap-6 py-8 bg-white/95 backdrop-blur-xl border-t border-[var(--line)] overflow-hidden"
 					>
 
 						{NAV_LINKS.map((link) => (
@@ -124,8 +126,9 @@ function Navbar() {
 								<button
 									onClick={() => handleNavClick(link.id)}
 									className={`text-lg font-medium ${
-										activeSection === link.id ? "text-cyan-400" : "text-gray-300"
+										activeSection === link.id ? "text-[var(--accent-strong)]" : "text-[var(--slate)]"
 									}`}
+									style={{ fontFamily: "var(--mono)" }}
 								>
 									{link.label}
 								</button>

@@ -1,48 +1,36 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_BASE_URL } from "../config/api";
 
 import {
 	FaJava,
-	FaReact,
 	FaHtml5,
 	FaCss3Alt,
 	FaGitAlt,
+	FaGithub,
 	FaCode
 } from "react-icons/fa";
 
 import {
 	SiSpringboot,
 	SiMysql,
-	SiApachekafka,
-	SiRedis,
-	SiJavascript,
-	SiTailwindcss,
-	SiDocker,
-	SiPostman
+	SiVisualstudiocode
 } from "react-icons/si";
 
-// Add a new mapping here whenever a new skill name is added on the backend —
-// everything else (grid, animation, cards) updates automatically.
-const ICON_MAP = {
-	java: <FaJava />,
-	react: <FaReact />,
-	"spring boot": <SiSpringboot />,
-	mysql: <SiMysql />,
-	kafka: <SiApachekafka />,
-	redis: <SiRedis />,
-	html: <FaHtml5 />,
-	css: <FaCss3Alt />,
-	git: <FaGitAlt />,
-	javascript: <SiJavascript />,
-	tailwind: <SiTailwindcss />,
-	"tailwind css": <SiTailwindcss />,
-	docker: <SiDocker />,
-	postman: <SiPostman />
-};
+// Straight from the resume — add or edit a skill here and the grid updates automatically.
+const SKILLS = [
+	{ name: "Java", icon: <FaJava /> },
+	{ name: "Spring Boot", icon: <SiSpringboot /> },
+	{ name: "MySQL", icon: <SiMysql /> },
+	{ name: "HTML", icon: <FaHtml5 /> },
+	{ name: "CSS", icon: <FaCss3Alt /> },
+	{ name: "Git & GitHub", icon: <FaGithub /> },
+	{ name: "VS Code", icon: <SiVisualstudiocode /> },
+	{ name: "Eclipse", icon: <FaCode /> }
+];
 
-const getIcon = (skillName = "") => ICON_MAP[skillName.toLowerCase()] || <FaCode />;
+const CERTIFICATIONS = [
+	"Java Full Stack Development — SLA Institute",
+	"MySQL — Udemy"
+];
 
 const containerVariants = {
 	hidden: {},
@@ -58,128 +46,75 @@ const cardVariants = {
 
 function Skills() {
 
-	const [skills, setSkills] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(false);
-
-	useEffect(() => {
-
-		loadSkills();
-
-	}, []);
-
-	const loadSkills = async () => {
-
-		try {
-
-			setLoading(true);
-
-			const response = await axios.get(
-				`${API_BASE_URL}/skill/list`
-			);
-
-			setSkills(response.data);
-			setError(false);
-
-		} catch (error) {
-
-			console.log(error);
-			setError(true);
-
-		} finally {
-
-			setLoading(false);
-		}
-	};
-
 	return (
 
-		<section id="skills" className="py-20 mt-12">
+		<section id="skills" className="section-alt">
 
 			<div className="container-custom">
 
+				<p className="eyebrow mb-4 justify-center flex">skills</p>
+
 				<motion.h1
-					initial={{ opacity: 0, y: -30 }}
+					initial={{ opacity: 0, y: -20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.7 }}
-					className="text-center text-5xl md:text-6xl font-bold mb-4"
+					className="text-center text-4xl md:text-5xl font-bold mb-4 text-[var(--ink)]"
 				>
-					My <span className="text-cyan-400">Skills</span>
+					Skills <span className="text-[var(--accent-strong)]">& Tools</span>
 				</motion.h1>
 
-				<p className="text-center text-gray-400 mb-16 max-w-xl mx-auto">
-					Technologies and tools I use to design, build, and ship full stack applications.
+				<p className="text-center text-[var(--slate)] mb-16 max-w-xl mx-auto">
+					The languages, frameworks, and tools I use day to day.
 				</p>
 
-				{loading && (
+				<motion.div
+					variants={containerVariants}
+					initial="hidden"
+					whileInView="show"
+					viewport={{ once: true, amount: 0.2 }}
+					className="grid grid-cols-2 md:grid-cols-4 gap-6"
+				>
 
-					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-						{Array.from({ length: 8 }).map((_, i) => (
-							<div
-								key={i}
-								className="skeleton rounded-[35px] p-10 h-[180px] border border-cyan-500/10"
-							/>
-						))}
-					</div>
+					{
+						SKILLS.map((skill) => (
 
-				)}
+							<motion.div
+								key={skill.name}
+								variants={cardVariants}
+								whileHover={{ y: -6 }}
+								className="card group p-8 flex flex-col items-center justify-center text-center hover:border-[var(--accent)] hover:shadow-lg hover:shadow-black/5 duration-300"
+							>
 
-				{!loading && error && (
-					<p className="text-center text-gray-400">
-						Couldn't load skills right now — please try again shortly.
-					</p>
-				)}
+								<div className="text-5xl text-[var(--accent-strong)] mb-5 transition-transform duration-500 group-hover:scale-110">
+									{skill.icon}
+								</div>
 
-				{!loading && !error && skills.length === 0 && (
-					<p className="text-center text-gray-400">
-						Skills will show up here once they're added.
-					</p>
-				)}
+								<h2 className="text-lg font-semibold text-[var(--ink)]">
+									{skill.name}
+								</h2>
 
-				{!loading && !error && skills.length > 0 && (
+							</motion.div>
 
-					<motion.div
-						variants={containerVariants}
-						initial="hidden"
-						whileInView="show"
-						viewport={{ once: true, amount: 0.2 }}
-						className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10"
-					>
+						))
+					}
 
-						{
-							skills.map((skill) => (
+				</motion.div>
 
-								<motion.div
-									key={skill.id}
-									variants={cardVariants}
-									whileHover={{
-										y: -10,
-										scale: 1.03
-									}}
-									className="group bg-slate-900/70 border border-cyan-500/10 rounded-[35px] p-10 flex flex-col items-center justify-center backdrop-blur-xl shadow-lg hover:shadow-cyan-500/20 hover:border-cyan-500/40 duration-300"
-								>
+				<div className="mt-14 flex flex-wrap justify-center gap-4">
 
-									<div className="text-7xl text-cyan-400 mb-6 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+					{CERTIFICATIONS.map((cert) => (
 
-										{getIcon(skill.skillName)}
+						<span
+							key={cert}
+							className="px-5 py-3 rounded-full bg-[var(--accent-soft)] text-[var(--accent-strong)] text-sm font-medium border border-[var(--accent-soft-2)]"
+						>
+							{cert}
+						</span>
 
-									</div>
+					))}
 
-									<h2 className="text-2xl font-semibold">
-
-										{skill.skillName}
-
-									</h2>
-
-								</motion.div>
-
-							))
-						}
-
-					</motion.div>
-
-				)}
+				</div>
 
 			</div>
 

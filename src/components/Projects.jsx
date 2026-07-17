@@ -1,14 +1,21 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import { API_BASE_URL } from "../config/api";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 import img1 from "../assets/project-1.svg";
-import img2 from "../assets/project-2.svg";
-import img3 from "../assets/project-3.svg";
 
-const FALLBACK_IMAGES = [img1, img2, img3];
+// Straight from the resume's PROJECT section — edit here to add more later.
+const PROJECTS = [
+	{
+		id: 1,
+		title: "Coffee Premium",
+		subtitle: "Coffee Shop Website · Team Size: 1",
+		description:
+			"A full-stack coffee shop website that lets customers explore products, place reservations, and interact with a modern, responsive interface. Frontend built with React.js, Vite, and Tailwind CSS; backend built with Spring Boot, integrated with a MySQL database through REST APIs.",
+		technologies: ["React.js", "Spring Boot", "MySQL", "Tailwind CSS", "Vite", "REST API"],
+		liveLink: "https://coffee-premium-frontend.vercel.app",
+		image: img1
+	}
+];
 
 const containerVariants = {
 	hidden: {},
@@ -22,191 +29,111 @@ const cardVariants = {
 
 function Projects() {
 
-	const [projects, setProjects] = useState([]);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(false);
-
-	useEffect(() => {
-
-		loadProjects();
-
-	}, []);
-
-	const loadProjects = async () => {
-
-		try {
-
-			setLoading(true);
-
-			const response = await axios.get(
-				`${API_BASE_URL}/project/list`
-			);
-
-			setProjects(response.data);
-			setError(false);
-
-		} catch (error) {
-
-			console.log(error);
-			setError(true);
-
-		} finally {
-
-			setLoading(false);
-		}
-	};
-
 	return (
 
-		<section id="projects" className="py-20">
+		<section id="projects">
 
 			<div className="container-custom">
 
+				<p className="eyebrow mb-4 justify-center flex">projects</p>
+
 				<motion.h1
-					initial={{ opacity: 0, y: -30 }}
+					initial={{ opacity: 0, y: -20 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true }}
 					transition={{ duration: 0.7 }}
-					className="text-center text-5xl md:text-6xl font-bold mb-4"
+					className="text-center text-4xl md:text-5xl font-bold mb-4 text-[var(--ink)]"
 				>
-					My <span className="text-cyan-400">Projects</span>
+					My <span className="text-[var(--accent-strong)]">Projects</span>
 				</motion.h1>
 
-				<p className="text-center text-gray-400 mb-16 max-w-xl mx-auto">
-					A selection of things I've built end to end — from database to UI.
+				<p className="text-center text-[var(--slate)] mb-16 max-w-xl mx-auto">
+					Something I've built end to end — from database to UI.
 				</p>
 
-				{loading && (
+				<motion.div
+					variants={containerVariants}
+					initial="hidden"
+					whileInView="show"
+					viewport={{ once: true, amount: 0.15 }}
+					className="grid md:grid-cols-1 max-w-3xl mx-auto gap-12"
+				>
 
-					<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-						{Array.from({ length: 3 }).map((_, i) => (
-							<div key={i} className="rounded-[35px] overflow-hidden border border-cyan-500/10">
-								<div className="skeleton h-64" />
-								<div className="p-8 space-y-4">
-									<div className="skeleton h-6 w-2/3 rounded-full" />
-									<div className="skeleton h-4 w-full rounded-full" />
-									<div className="skeleton h-4 w-5/6 rounded-full" />
+					{
+						PROJECTS.map((project) => (
+
+							<motion.div
+								key={project.id}
+								variants={cardVariants}
+								whileHover={{ y: -6 }}
+								className="card overflow-hidden hover:shadow-xl hover:shadow-black/5 duration-300 flex flex-col md:flex-row"
+							>
+
+								<div className="md:w-2/5 h-56 md:h-auto overflow-hidden">
+
+									<img
+										src={project.image}
+										alt={project.title}
+										className="w-full h-full object-cover object-center block"
+										loading="lazy"
+									/>
+
 								</div>
-							</div>
-						))}
-					</div>
 
-				)}
+								<div className="p-8 flex flex-col justify-between flex-1">
 
-				{!loading && error && (
-					<p className="text-center text-gray-400">
-						Couldn't load projects right now — please try again shortly.
-					</p>
-				)}
+									<div>
 
-				{!loading && !error && projects.length === 0 && (
-					<p className="text-center text-gray-400">
-						Projects will show up here once they're added.
-					</p>
-				)}
+										<h2 className="text-2xl font-bold mb-1 text-[var(--ink)]">
+											{project.title}
+										</h2>
 
-				{!loading && !error && projects.length > 0 && (
+										<p
+											className="text-sm text-[var(--slate-soft)] mb-4"
+											style={{ fontFamily: "var(--mono)" }}
+										>
+											{project.subtitle}
+										</p>
 
-					<motion.div
-						variants={containerVariants}
-						initial="hidden"
-						whileInView="show"
-						viewport={{ once: true, amount: 0.15 }}
-						className="grid md:grid-cols-2 lg:grid-cols-3 gap-12"
-					>
+										<p className="text-[var(--slate)] leading-7">
+											{project.description}
+										</p>
 
-						{
-							projects.map((project, index) => (
+										<div className="flex flex-wrap gap-2 mt-5">
 
-								<motion.div
-									key={project.id}
-									variants={cardVariants}
-									whileHover={{ y: -10 }}
-									className="bg-slate-900/70 rounded-[35px] overflow-hidden border border-cyan-500/10 backdrop-blur-xl shadow-lg hover:shadow-cyan-500/20 hover:border-cyan-500/30 duration-300 flex flex-col"
-								>
+											{project.technologies.map((tech) => (
 
-									<div className="h-64 overflow-hidden rounded-t-[35px]">
+												<span
+													key={tech}
+													className="text-xs font-medium px-3 py-1 rounded-full bg-[var(--accent-soft)] text-[var(--accent-strong)] border border-[var(--accent-soft-2)]"
+												>
+													{tech}
+												</span>
 
-										<img
-											src={project.image || FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]}
-											alt={project.title}
-											className="w-full h-full object-cover object-center block transition-transform duration-500 hover:scale-110"
-											loading="lazy"
-										/>
-
-									</div>
-
-									<div className="p-8 flex flex-col justify-between flex-1">
-
-										<div>
-
-											<h2 className="text-2xl font-bold mb-4">
-
-												{project.title}
-
-											</h2>
-
-											<p className="text-gray-300 leading-7">
-
-												{project.description}
-
-											</p>
-
-											{project.technologies && (
-
-												<div className="flex flex-wrap gap-2 mt-5">
-
-													{project.technologies.split(",").map((tech) => (
-
-														<span
-															key={tech}
-															className="text-xs font-medium px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20"
-														>
-															{tech.trim()}
-														</span>
-
-													))}
-
-												</div>
-
-											)}
-
-										</div>
-
-										<div className="mt-8 flex items-center justify-end gap-4">
-
-											{project.liveLink && (
-
-												<a href={project.liveLink} target="_blank" rel="noreferrer">
-													<button className="flex items-center gap-2 bg-cyan-500 px-5 py-3 rounded-xl font-semibold hover:scale-105 hover:bg-cyan-400 duration-300">
-														<FaExternalLinkAlt size={14} /> Live Demo
-													</button>
-												</a>
-
-											)}
-
-											{project.githubLink && (
-
-												<a href={project.githubLink} target="_blank" rel="noreferrer">
-													<button className="flex items-center gap-2 border border-cyan-400 px-5 py-3 rounded-xl hover:bg-cyan-500 duration-300 font-semibold">
-														<FaGithub size={16} /> GitHub
-													</button>
-												</a>
-
-											)}
+											))}
 
 										</div>
 
 									</div>
 
-								</motion.div>
+									<div className="mt-8 flex items-center justify-end">
 
-							))
-						}
+										<a href={project.liveLink} target="_blank" rel="noreferrer">
+											<button className="flex items-center gap-2 btn-primary px-5 py-3 rounded-xl font-semibold hover:scale-[1.02] duration-300">
+												<FaExternalLinkAlt size={14} /> Live Demo
+											</button>
+										</a>
 
-					</motion.div>
+									</div>
 
-				)}
+								</div>
+
+							</motion.div>
+
+						))
+					}
+
+				</motion.div>
 
 			</div>
 
